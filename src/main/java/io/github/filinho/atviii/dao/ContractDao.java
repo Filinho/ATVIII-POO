@@ -87,8 +87,8 @@ public class ContractDao extends Dao <Contract>{
        return "SELECT * FROM " + TABLE_NAME + ";";
     }
 
-    protected String getRetriveByForeingKeyStatement(int foreignKeyId, String foreignKeyName){
-        return "SELECT * FROM "+ TABLE_NAME + " WHERE " + foreignKeyName +" = " + foreignKeyId+";";
+    protected String getRetriveByForeingKeyStatement(int foreignKeyId){
+        return "SELECT * FROM "+ TABLE_NAME + " WHERE " + "client_id" +" = " + foreignKeyId+";";
     }
     
     @Override
@@ -184,7 +184,7 @@ public class ContractDao extends Dao <Contract>{
         
         final var db = DataBase.getConnection();
         
-        try (var statement = db.prepareStatement(getRetriveByForeingKeyStatement(id,"client_id"), Statement.RETURN_GENERATED_KEYS)) {
+        try (var statement = db.prepareStatement(getRetriveByForeingKeyStatement(id), Statement.RETURN_GENERATED_KEYS)) {
             
             System.out.println("SQL: " + statement.toString());
             var currentRow = statement.executeQuery();
